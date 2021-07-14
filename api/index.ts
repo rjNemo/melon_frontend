@@ -1,8 +1,7 @@
 import axios from "axios";
 import { Bill, BillForm } from "../types/bill";
 
-const BASE_URL = "http://localhost:9000/bills";
-
+const BASE_URL = process.env.NEXT_PUBLIC_API_URL
 const client = axios.create({ baseURL: BASE_URL });
 
 export const createBill = async (data: BillForm) => {
