@@ -35,7 +35,7 @@ const BillPage = ({ bill }: BillProps) => {
 
   return (
     <main>
-      <Typography.Title>Facture #VFNI{`${bill.number}`}</Typography.Title>
+      <Typography.Title>Facture #VFNI{`${bill.id}`.padStart(4,"0")}</Typography.Title>
       <Space>
         <Button type="primary" onClick={() => handleSendPDF(bill.id)} disabled={sent}>
           {sent ? "The bill is on its way to your customer" : "Send Bill"}

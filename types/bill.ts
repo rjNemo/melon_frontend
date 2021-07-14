@@ -15,7 +15,6 @@ export type BillForm = {
 export interface Bill {
   id: number;
   phoneNumber: number;
-  number: number;
   name: string;
   price: number;
   start: Date;
