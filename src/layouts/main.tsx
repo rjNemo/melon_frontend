@@ -34,7 +34,9 @@ export const withLayout =
             </Row>
           </Header>
           <Content style={{ padding: '20px 50px' }}>
-            <Component {...props} />
+            <main>
+              <Component {...props} />
+            </main>
           </Content>
           <Footer style={{ textAlign: 'center' }}>🍉 Melon - Property Management</Footer>
         </Layout>

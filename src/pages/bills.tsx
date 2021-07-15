@@ -20,7 +20,7 @@ function BillsPage() {
   }, []);
 
   return (
-    <section>
+    <>
       <h1>All bills</h1>
       <List
         grid={{ gutter: 16, column: 4 }}
@@ -36,7 +36,7 @@ function BillsPage() {
           </Link>
         )}
       />
-    </section>
+    </>
   );
 }
 

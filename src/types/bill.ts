@@ -1,4 +1,4 @@
-export type BillForm = {
+export type BillFormType = {
   name: string;
   phoneNumber: string;
   price: number;
@@ -29,7 +29,7 @@ export interface Bill {
 
 export enum Room {
   t2,
-  t3,
+  t3
 }
 
 export enum Platform {
@@ -37,19 +37,19 @@ export enum Platform {
   booking,
   airbnb,
   tripadvisor,
-  perso,
+  perso
 }
 
 export enum PaymentMethod {
   card,
   cash,
   cheque,
-  transfer,
+  transfer
 }
 
 export enum PaymentStatus {
   pending,
   canceled,
   completed,
-  refund,
+  refund
 }

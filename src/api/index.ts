@@ -1,10 +1,10 @@
 import axios from 'axios';
-import { Bill, BillForm } from '../types/bill';
+import { Bill, BillFormType } from '../types/bill';
 
 const BASE_URL = process.env.REACT_APP_API_URL;
 const client = axios.create({ baseURL: BASE_URL });
 
-export const createBill = async (data: BillForm) => {
+export const createBill = async (data: BillFormType) => {
   try {
     const { data: response } = await client.post<number>('/', data);
     return response;
