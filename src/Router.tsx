@@ -4,14 +4,14 @@ import BillsPage from './pages/bills';
 import HomePage from './pages/home';
 import NotFoundPage from './pages/notFound';
 
-type Config = {
+type RouteConfig = {
   path: string;
   component: ({ ...props }: any) => JSX.Element;
   exact?: boolean;
 };
 
 export default function Router() {
-  const routes: Config[] = [
+  const routes: RouteConfig[] = [
     {
       path: '/',
       component: HomePage,
