@@ -1,12 +1,15 @@
-import { Button, Form, Input, Switch } from "antd";
-import { Controller, useForm } from "react-hook-form";
-import { createBill } from "../api";
-import { InputSelect } from "../components/inputSelect";
-import { withLayout } from "../layouts/main";
-import { BillForm } from "../types/bill";
+import { Button, Form, Input, Switch } from 'antd';
+import { Controller, useForm } from 'react-hook-form';
+import { createBill } from '../api';
+import { InputSelect } from '../components/inputSelect';
+import { withLayout } from '../layouts/main';
+import { BillForm } from '../types/bill';
 
-const Home = () => {
+const HomePage = () => {
+  // Hooks
   const { register, handleSubmit, control } = useForm<BillForm>();
+
+  // Logic
   const onSubmit = handleSubmit((data) => createBill(data));
 
   return (
@@ -16,23 +19,23 @@ const Home = () => {
 
         <Form layout="vertical" onFinish={onSubmit}>
           <Form.Item label="Customer name">
-            <Input placeholder="Cameron Doe" {...register("name")} />
+            <Input placeholder="Cameron Doe" {...register('name')} />
           </Form.Item>
 
           <Form.Item label="Customer phone number">
-            <Input placeholder="06 12 34 56 78" {...register("phoneNumber")} />
+            <Input placeholder="06 12 34 56 78" {...register('phoneNumber')} />
           </Form.Item>
 
           <Form.Item label="Price">
-            <Input placeholder="75.00" addonAfter="€" {...register("price")} />
+            <Input placeholder="75.00" addonAfter="€" {...register('price')} />
           </Form.Item>
 
           <Form.Item label="Start">
-            <Input type="date" {...register("start")} />
+            <Input type="date" {...register('start')} />
           </Form.Item>
 
           <Form.Item label="End">
-            <Input type="date" {...register("end")} />
+            <Input type="date" {...register('end')} />
           </Form.Item>
 
           <InputSelect
@@ -40,11 +43,11 @@ const Home = () => {
             name="room"
             label="Room"
             placeholder="Choose a room to stay"
-            options={["T2 Corail", "T3 Azur"]}
+            options={['T2 Corail', 'T3 Azur']}
           />
 
           <Form.Item label="Customers number">
-            <Input type="number" {...register("customers")} placeholder="1" />
+            <Input type="number" {...register('customers')} placeholder="1" />
           </Form.Item>
 
           <InputSelect
@@ -52,7 +55,7 @@ const Home = () => {
             name="platform"
             label="Booking Platform"
             placeholder="Select a booking platform"
-            options={["Site", "Booking.com", "AirBnB", "TripAdvisor", "Perso"]}
+            options={['Site', 'Booking.com', 'AirBnB', 'TripAdvisor', 'Perso']}
           />
 
           <Controller
@@ -80,7 +83,7 @@ const Home = () => {
             name="paymentMethod"
             label="Payment method"
             placeholder="How do you want to pay?"
-            options={["Card", "Cash", "Cheque", "Transfer"]}
+            options={['Card', 'Cash', 'Cheque', 'Transfer']}
           />
 
           <InputSelect
@@ -88,7 +91,7 @@ const Home = () => {
             name="paymentStatus"
             label="Payment status"
             placeholder="What is the current payment status?"
-            options={["Pending", "Canceled", "Completed", "Refunded"]}
+            options={['Pending', 'Canceled', 'Completed', 'Refunded']}
           />
 
           <Form.Item>
@@ -102,4 +105,4 @@ const Home = () => {
   );
 };
 
-export default withLayout(Home);
+export default withLayout(HomePage);

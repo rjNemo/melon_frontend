@@ -1,12 +1,12 @@
-import axios from "axios";
-import { Bill, BillForm } from "../types/bill";
+import axios from 'axios';
+import { Bill, BillForm } from '../types/bill';
 
-const BASE_URL = process.env.NEXT_PUBLIC_API_URL
+const BASE_URL = process.env.REACT_APP_API_URL;
 const client = axios.create({ baseURL: BASE_URL });
 
 export const createBill = async (data: BillForm) => {
   try {
-    const { data: response } = await client.post<number>("/", data)
+    const { data: response } = await client.post<number>('/', data);
     return response;
   } catch (error) {
     console.error(error);
@@ -14,19 +14,24 @@ export const createBill = async (data: BillForm) => {
   }
 };
 
-export const fetchOneBill = async (id: number) => {
+type Response<T> = {
+  data?: T;
+  error?: any;
+};
+
+export const fetchOneBill = async (id: number): Promise<Response<Bill>> => {
   try {
     const { data } = await client.get<Bill>(`/${id}`);
-    return data;
+    return { data };
   } catch (error) {
     console.error(error);
-    return {} as Bill;
+    return { error };
   }
 };
 
 export const fetchAllBills = async () => {
   try {
-    const { data } = await client.get<Bill[]>("/");
+    const { data } = await client.get<Bill[]>('/');
     return data;
   } catch (error) {
     console.error(error);
@@ -40,6 +45,6 @@ export const sendBillAsPDF = async (id: number) => {
     return data;
   } catch (error) {
     console.error(error);
-    return false
+    return false;
   }
 };
