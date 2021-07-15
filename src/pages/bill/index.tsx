@@ -43,7 +43,7 @@ const BillPage = () => {
   };
 
   const content = edit ? (
-    <EditBillForm />
+    <EditBillForm bill={bill} />
   ) : sent ? (
     <BillSent />
   ) : (
