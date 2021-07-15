@@ -6,11 +6,11 @@ const client = axios.create({ baseURL: BASE_URL });
 
 export const createBill = async (data: BillForm) => {
   try {
-    const { data: response } = await client.post("/", data)
+    const { data: response } = await client.post<number>("/", data)
     return response;
   } catch (error) {
     console.error(error);
-    return { error };
+    return 0;
   }
 };
 
@@ -36,9 +36,10 @@ export const fetchAllBills = async () => {
 
 export const sendBillAsPDF = async (id: number) => {
   try {
-    const { data } = await client.post(`/${id}/send`);
+    const { data } = await client.post<boolean>(`/${id}/send`);
     return data;
   } catch (error) {
     console.error(error);
+    return false
   }
 };

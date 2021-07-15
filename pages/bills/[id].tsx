@@ -1,9 +1,9 @@
-import { Button, message, Space, Typography } from "antd";
-import { GetStaticPaths, GetStaticProps } from "next";
-import { useState } from "react";
-import { fetchAllBills, fetchOneBill, sendBillAsPDF } from "../../api";
-import { withLayout } from "../../layouts/main";
-import { Bill } from "../../types/bill";
+import {Button, message, Space, Typography} from "antd";
+import {GetStaticPaths, GetStaticProps} from "next";
+import {useState} from "react";
+import {fetchAllBills, fetchOneBill, sendBillAsPDF} from "../../api";
+import {withLayout} from "../../layouts/main";
+import {Bill} from "../../types/bill";
 
 type BillProps = { bill: Bill };
 type QueryParams = { id: string };
