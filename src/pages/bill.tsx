@@ -12,6 +12,7 @@ const BillPage = () => {
   // Hooks
   const { id } = useParams<QueryParams>();
   const [sent, setSent] = useState(false);
+
   // Local State
   const [bill, setBill] = useState<Bill>({} as Bill);
 

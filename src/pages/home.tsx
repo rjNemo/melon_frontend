@@ -1,5 +1,6 @@
 import { Button, Form, Input, Switch } from 'antd';
 import { Controller, useForm } from 'react-hook-form';
+import { useHistory } from 'react-router-dom';
 import { createBill } from '../api';
 import { InputSelect } from '../components/inputSelect';
 import { withLayout } from '../layouts/main';
@@ -8,9 +9,13 @@ import { BillForm } from '../types/bill';
 const HomePage = () => {
   // Hooks
   const { register, handleSubmit, control } = useForm<BillForm>();
+  const history = useHistory();
 
   // Logic
-  const onSubmit = handleSubmit((data) => createBill(data));
+  const onSubmit = handleSubmit(async (data) => {
+    const newId = await createBill(data);
+    history.push(`/bills/${newId}`);
+  });
 
   return (
     <main>
