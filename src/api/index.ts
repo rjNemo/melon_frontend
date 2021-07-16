@@ -19,10 +19,26 @@ type Response<T> = {
   error?: any;
 };
 
+const billFrom = (bill: any): Bill =>
+  ({
+    id: bill.id,
+    customers: bill.customers_qty,
+    end: bill.end_date,
+    name: bill.name,
+    paymentMethod: bill.payment_method,
+    paymentStatus: bill.payment_status,
+    phoneNumber: bill.phone_number,
+    platform: bill.platform,
+    price: bill.price,
+    room: bill.room,
+    start: bill.start_date,
+    taxes: bill.with_tax
+  } as Bill);
+
 export const fetchOneBill = async (id: number): Promise<Response<Bill>> => {
   try {
     const { data } = await client.get<Bill>(`/${id}`);
-    return { data };
+    return { data: billFrom(data) };
   } catch (error) {
     console.error(error);
     return { error };

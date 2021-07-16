@@ -1,12 +1,13 @@
 import { Button, Col, Divider, message, PageHeader, Space, Typography } from 'antd';
 import { useEffect, useState } from 'react';
+import { useForm } from 'react-hook-form';
 import { useHistory, useParams } from 'react-router-dom';
-import { fetchOneBill, sendBillAsPDF } from '../../api';
+import { createBill, fetchOneBill, sendBillAsPDF } from '../../api';
+import { BillForm } from '../../components/billForm';
 import { withLayout } from '../../layouts/main';
 import { Bill } from '../../types/bill';
 import NotFoundPage from '../notFound';
 import { BillSent } from './billSent';
-import { EditBillForm } from './editBillForm';
 
 export type QueryParams = { id: string };
 
@@ -14,6 +15,24 @@ const BillPage = () => {
   // Hooks
   const { id } = useParams<QueryParams>();
   const history = useHistory();
+
+  const defaultValues = {
+    customers: 0,
+    start: '',
+    end: '',
+    name: '',
+    paymentMethod: 0,
+    paymentStatus: 0,
+    phoneNumber: '',
+    platform: 0,
+    price: 0,
+    room: 0,
+    taxes: false
+  };
+
+  const { register, handleSubmit, control, reset } = useForm<BillFormType>({
+    defaultValues
+  });
 
   // Local State
   const [sent, setSent] = useState(false);
@@ -42,8 +61,12 @@ const BillPage = () => {
     setSent(() => true);
   };
 
+  const onSubmit = handleSubmit(async (data) => {
+    await createBill(data);
+  });
+
   const content = edit ? (
-    <EditBillForm bill={bill} />
+    <BillForm onFinish={onSubmit} control={control} register={register} />
   ) : sent ? (
     <BillSent />
   ) : (
@@ -78,6 +101,7 @@ const BillPage = () => {
             setSent(() => false);
             setEdit(() => true);
           }}
+          disabled={edit}
         >
           Edit
         </Button>
