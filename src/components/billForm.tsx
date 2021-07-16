@@ -1,37 +1,32 @@
-import { Button, Form, Input, Switch } from 'antd';
+import { Button, Form, Switch } from 'antd';
 import { BaseSyntheticEvent } from 'react';
-import { Control, Controller, UseFormRegister } from 'react-hook-form';
+import { Control, Controller } from 'react-hook-form';
 import { BillFormType } from '../types/bill';
+import { FormInput } from './formInput';
 import { InputSelect } from './inputSelect';
 
 type Props = {
   onFinish: (e?: BaseSyntheticEvent) => Promise<void>;
   control: Control<BillFormType>;
-  register: UseFormRegister<BillFormType>;
 };
 
-export function BillForm({ onFinish, control, register }: Props) {
+export function BillForm({ onFinish, control }: Props) {
   return (
     <Form layout="vertical" onFinish={onFinish}>
-      <Form.Item label="Customer name">
-        <Input placeholder="Cameron Doe" {...register('name')} />
-      </Form.Item>
+      <FormInput control={control} name="name" label="Customer name" placeholder="Cameron Doe" />
 
-      <Form.Item label="Customer phone number">
-        <Input placeholder="06 12 34 56 78" {...register('phoneNumber')} />
-      </Form.Item>
+      <FormInput
+        control={control}
+        name="phoneNumber"
+        label="Customer phone number"
+        placeholder="06 12 34 56 78"
+      />
 
-      <Form.Item label="Price">
-        <Input placeholder="75.00" addonAfter="€" {...register('price')} />
-      </Form.Item>
+      <FormInput control={control} name="price" label="Price" placeholder="75.00" addonAfter="€" />
 
-      <Form.Item label="Start">
-        <Input type="date" {...register('start')} />
-      </Form.Item>
+      <FormInput control={control} name="start" label="Start" type="date" />
 
-      <Form.Item label="End">
-        <Input type="date" {...register('end')} />
-      </Form.Item>
+      <FormInput control={control} name="end" label="End" type="date" />
 
       <InputSelect
         control={control}
@@ -41,9 +36,13 @@ export function BillForm({ onFinish, control, register }: Props) {
         options={['T2 Corail', 'T3 Azur']}
       />
 
-      <Form.Item label="Customers number">
-        <Input type="number" {...register('customers')} placeholder="1" />
-      </Form.Item>
+      <FormInput
+        control={control}
+        name="customers"
+        label="Customers number"
+        placeholder="1"
+        type="number"
+      />
 
       <InputSelect
         control={control}

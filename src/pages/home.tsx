@@ -7,7 +7,7 @@ import { BillFormType } from '../types/bill';
 
 const HomePage = () => {
   // Hooks
-  const { register, handleSubmit, control } = useForm<BillFormType>();
+  const { handleSubmit, control } = useForm<BillFormType>();
   const history = useHistory();
 
   // Logic
@@ -20,7 +20,7 @@ const HomePage = () => {
     <>
       <h1>Create a new bill</h1>
 
-      <BillForm onFinish={onSubmit} control={control} register={register} />
+      <BillForm onFinish={onSubmit} control={control} />
     </>
   );
 };

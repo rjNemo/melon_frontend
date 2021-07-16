@@ -5,8 +5,7 @@ import { useHistory, useParams } from 'react-router-dom';
 import { createBill, fetchOneBill, sendBillAsPDF } from '../../api';
 import { BillForm } from '../../components/billForm';
 import { withLayout } from '../../layouts/main';
-import { Bill } from '../../types/bill';
-import NotFoundPage from '../notFound';
+import { Bill, BillFormType } from '../../types/bill';
 import { BillSent } from './billSent';
 
 export type QueryParams = { id: string };
@@ -15,24 +14,7 @@ const BillPage = () => {
   // Hooks
   const { id } = useParams<QueryParams>();
   const history = useHistory();
-
-  const defaultValues = {
-    customers: 0,
-    start: '',
-    end: '',
-    name: '',
-    paymentMethod: 0,
-    paymentStatus: 0,
-    phoneNumber: '',
-    platform: 0,
-    price: 0,
-    room: 0,
-    taxes: false
-  };
-
-  const { register, handleSubmit, control, reset } = useForm<BillFormType>({
-    defaultValues
-  });
+  const { handleSubmit, control, reset } = useForm<BillFormType>();
 
   // Local State
   const [sent, setSent] = useState(false);
@@ -41,18 +23,16 @@ const BillPage = () => {
 
   // Effects
   useEffect(() => {
-    const loadBIllById = async (id: string) => {
+    (async (id: string) => {
       const billID = parseInt(id);
       const { data: loadedBill, error } = await fetchOneBill(billID);
-      if (!loadedBill || error) {
-        return <NotFoundPage />;
+      if (loadedBill && error) {
+        setBill(() => loadedBill);
+        const { id, ...values } = loadedBill;
+        reset(values);
       }
-      setBill(() => loadedBill);
-      return;
-    };
-
-    loadBIllById(id);
-  }, [id]);
+    })(id);
+  }, [id, reset]);
 
   // Logic
   const handleSendPDF = (id: number) => {
@@ -66,15 +46,15 @@ const BillPage = () => {
   });
 
   const content = edit ? (
-    <BillForm onFinish={onSubmit} control={control} register={register} />
+    <BillForm onFinish={onSubmit} control={control} />
   ) : sent ? (
     <BillSent />
   ) : (
     <Col>
-      <Typography.Text>{bill?.name}</Typography.Text>
-      <Typography.Text>{bill?.price} €</Typography.Text>
+      <Typography.Text>{bill.name}</Typography.Text>
+      <Typography.Text>{bill.price} €</Typography.Text>
       <Typography.Text>
-        from {bill?.start} to {bill?.end}
+        from {bill.start} to {bill.end}
       </Typography.Text>
     </Col>
   );
