@@ -1,8 +1,8 @@
 import { Button, Col, Divider, message, PageHeader, Space, Typography } from 'antd';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useHistory, useParams } from 'react-router-dom';
-import { createBill, fetchOneBill, sendBillAsPDF } from '../../api';
+import { fetchOneBill, sendBillAsPDF, updateBill } from '../../api';
 import { BillForm } from '../../components/billForm';
 import { withLayout } from '../../layouts/main';
 import { Bill, BillFormType } from '../../types/bill';
@@ -12,7 +12,7 @@ export type QueryParams = { id: string };
 
 const BillPage = () => {
   // Hooks
-  const { id } = useParams<QueryParams>();
+  let { id } = useParams<QueryParams>();
   const history = useHistory();
   const { handleSubmit, control, reset } = useForm<BillFormType>();
 
@@ -22,17 +22,22 @@ const BillPage = () => {
   const [bill, setBill] = useState<Bill>({} as Bill);
 
   // Effects
-  useEffect(() => {
-    (async (id: string) => {
+  const loadBill = useCallback(
+    async (id: string) => {
       const billID = parseInt(id);
       const { data: loadedBill, error } = await fetchOneBill(billID);
-      if (loadedBill && error) {
+      if (loadedBill && !error) {
         setBill(() => loadedBill);
         const { id, ...values } = loadedBill;
         reset(values);
       }
-    })(id);
-  }, [id, reset]);
+    },
+    [reset]
+  );
+
+  useEffect(() => {
+    loadBill(id);
+  }, [id, loadBill, reset]);
 
   // Logic
   const handleSendPDF = (id: number) => {
@@ -42,7 +47,12 @@ const BillPage = () => {
   };
 
   const onSubmit = handleSubmit(async (data) => {
-    await createBill(data);
+    const { error } = await updateBill(parseInt(id), data);
+    if (error) {
+      message.error(`Update failed because of ${error}`);
+    }
+    setEdit(() => false);
+    loadBill(id);
   });
 
   const content = edit ? (

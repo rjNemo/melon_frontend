@@ -4,6 +4,11 @@ import { Bill, BillFormType } from '../types/bill';
 const BASE_URL = process.env.REACT_APP_API_URL;
 const client = axios.create({ baseURL: BASE_URL });
 
+type Response<T> = {
+  data?: T;
+  error?: any;
+};
+
 export const createBill = async (data: BillFormType) => {
   try {
     const { data: response } = await client.post<number>('/', data);
@@ -14,9 +19,14 @@ export const createBill = async (data: BillFormType) => {
   }
 };
 
-type Response<T> = {
-  data?: T;
-  error?: any;
+export const updateBill = async (id: number, data: BillFormType): Promise<Response<void>> => {
+  try {
+    const { data: response } = await client.put<void>(`/${id}`, data);
+    return { data: response };
+  } catch (error) {
+    console.error(error);
+    return { error };
+  }
 };
 
 const billFrom = (bill: any): Bill =>
