@@ -1,28 +1,19 @@
-import { useForm } from 'react-hook-form';
+import { Button } from 'antd';
 import { useHistory } from 'react-router-dom';
-import { createBill } from '../api';
-import { BillForm } from '../components/billForm';
 import { withLayout } from '../layouts/main';
-import { BillFormType } from '../types/bill';
 
-const HomePage = () => {
+function HomePage() {
   // Hooks
-  const { handleSubmit, control } = useForm<BillFormType>();
   const history = useHistory();
-
-  // Logic
-  const onSubmit = handleSubmit(async (data) => {
-    const newId = await createBill(data);
-    history.push(`/bills/${newId}`);
-  });
 
   return (
     <>
-      <h1>Create a new bill</h1>
-
-      <BillForm onFinish={onSubmit} control={control} />
+      <h1>Rent it Like a Pro</h1>
+      <Button type="primary" size="large" onClick={() => history.push('/bills/new')}>
+        Add Bill
+      </Button>
     </>
   );
-};
+}
 
 export default withLayout(HomePage);

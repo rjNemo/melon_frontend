@@ -2,6 +2,7 @@ import { Route, Switch } from 'react-router-dom';
 import BillPage from './pages/bill';
 import BillsPage from './pages/bills';
 import HomePage from './pages/home';
+import NewBillPage from './pages/newBill';
 import NotFoundPage from './pages/notFound';
 
 type RouteConfig = {
@@ -15,6 +16,11 @@ export default function Router() {
     {
       path: '/',
       component: HomePage,
+      exact: true
+    },
+    {
+      path: '/bills/new',
+      component: NewBillPage,
       exact: true
     },
     {
