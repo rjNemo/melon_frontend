@@ -1,3 +1,5 @@
+import { enumToList } from '../../lib/enums';
+
 export type ReportFormType = {
   type: ReportType;
   month?: Month;
@@ -24,8 +26,3 @@ enum Month {
 }
 
 export const monthToList = () => enumToList(Month);
-
-export const enumToList = (enumerable: any) =>
-  Object.keys(enumerable)
-    .filter((v) => !parseInt(v))
-    .slice(1);
