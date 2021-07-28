@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { Bill, BillFormType } from '../types/bill';
+import { Bill, BillFormType, billFrom } from '../types/bill';
 
 const BASE_URL = process.env.REACT_APP_API_URL;
 const client = axios.create({ baseURL: BASE_URL });
@@ -28,22 +28,6 @@ export const updateBill = async (id: number, data: BillFormType): Promise<Respon
     return { error };
   }
 };
-
-const billFrom = (bill: any): Bill =>
-  ({
-    id: bill.id,
-    customers: bill.customers_qty,
-    end: bill.end_date,
-    name: bill.name,
-    paymentMethod: bill.payment_method,
-    paymentStatus: bill.payment_status,
-    phoneNumber: bill.phone_number,
-    platform: bill.platform,
-    price: bill.price,
-    room: bill.room,
-    start: bill.start_date,
-    taxes: bill.with_tax
-  } as Bill);
 
 export const fetchOneBill = async (id: number): Promise<Response<Bill>> => {
   try {

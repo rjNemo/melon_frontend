@@ -1,3 +1,5 @@
+import { PaymentMethod, PaymentStatus, Platform, Room } from './enums';
+
 export type BillFormType = {
   name: string;
   phoneNumber: string;
@@ -27,29 +29,18 @@ export interface Bill {
   paymentStatus: PaymentStatus;
 }
 
-export enum Room {
-  t2,
-  t3
-}
-
-export enum Platform {
-  web,
-  booking,
-  airbnb,
-  tripadvisor,
-  perso
-}
-
-export enum PaymentMethod {
-  card,
-  cash,
-  cheque,
-  transfer
-}
-
-export enum PaymentStatus {
-  pending,
-  canceled,
-  completed,
-  refund
-}
+export const billFrom = (bill: any): Bill =>
+  ({
+    id: bill.id,
+    customers: bill.customers_qty,
+    end: bill.end_date,
+    name: bill.name,
+    paymentMethod: bill.payment_method,
+    paymentStatus: bill.payment_status,
+    phoneNumber: bill.phone_number,
+    platform: bill.platform,
+    price: bill.price,
+    room: bill.room,
+    start: bill.start_date,
+    taxes: bill.with_tax
+  } as Bill);
