@@ -4,6 +4,7 @@ import BillsPage from './pages/bills';
 import HomePage from './pages/home';
 import NewBillPage from './pages/newBill';
 import NotFoundPage from './pages/notFound';
+import ReportPage from './pages/ReportPage';
 
 type RouteConfig = {
   path: string;
@@ -13,11 +14,13 @@ type RouteConfig = {
 
 export default function Router() {
   const routes: RouteConfig[] = [
+    // Home
     {
       path: '/',
       component: HomePage,
       exact: true
     },
+    // Bills
     {
       path: '/bills/new',
       component: NewBillPage,
@@ -32,6 +35,13 @@ export default function Router() {
       path: '/bills/:id',
       component: BillPage
     },
+    //  Reports
+    {
+      path: '/reports',
+      component: ReportPage,
+      exact: true
+    },
+    // … rest
     {
       path: '*',
       component: NotFoundPage
