@@ -1,6 +1,6 @@
 import { useForm } from 'react-hook-form';
 import { useHistory } from 'react-router-dom';
-import { createBill } from '../../api';
+import { createBill } from '../../api/bills';
 import { BillForm } from '../../components/billForm';
 import { withLayout } from '../../layouts/main';
 import { BillFormType } from '../../types/bill';

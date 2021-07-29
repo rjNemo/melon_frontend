@@ -1,17 +1,29 @@
 import { enumToList } from '../../lib/enums';
+import { Bill } from '../bill';
 
 export type ReportFormType = {
   type: ReportType;
   month?: Month;
+  year: number;
 };
 
+export interface Report {
+  type: ReportType;
+  month?: Month;
+  year: number;
+  revenue: number;
+  profit: number;
+  bookings: number;
+  bills: Bill[];
+}
+
 export enum ReportType {
-  monthly,
-  yearly
+  monthly = 'monthly',
+  yearly = 'yearly'
 }
 
 enum Month {
-  January,
+  January = 1,
   February,
   March,
   April,

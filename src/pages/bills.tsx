@@ -1,7 +1,7 @@
 import { Card, List } from 'antd';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { fetchAllBills } from '../api';
+import { fetchAllBills } from '../api/bills';
 import { withLayout } from '../layouts/main';
 import { Bill } from '../types/bill';
 

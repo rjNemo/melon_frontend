@@ -1,5 +1,7 @@
 import { Button, Form } from 'antd';
 import { useForm } from 'react-hook-form';
+import { fetchReport } from '../api/reports';
+import { FormInput } from '../components/formInput';
 import { InputSelect } from '../components/inputSelect';
 import { RadioInput } from '../components/radioInput';
 import { withLayout } from '../layouts/main';
@@ -7,10 +9,16 @@ import { monthToList, ReportFormType, ReportType } from '../types/report';
 
 function ReportPage() {
   // hooks
-  const { control, handleSubmit, watch } = useForm<ReportFormType>();
+  const { control, handleSubmit, watch } = useForm<ReportFormType>({
+    defaultValues: {
+      type: ReportType.monthly,
+      year: new Date().getFullYear(),
+      month: new Date().getMonth()
+    }
+  });
 
   // Logic
-  const onFinish = handleSubmit((data) => console.log(data));
+  const onFinish = handleSubmit((data) => fetchReport(data));
 
   const isMonthlyReport = watch('type') === ReportType.monthly;
 
@@ -24,6 +32,9 @@ function ReportPage() {
           label="Report type"
           options={['Monthly', 'Yearly']}
         />
+
+        <FormInput control={control} name="year" label="Year" type="number" />
+
         {isMonthlyReport && (
           <InputSelect
             control={control}

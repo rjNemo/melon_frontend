@@ -2,7 +2,7 @@ import { Button, Col, Divider, message, PageHeader, Space, Typography } from 'an
 import { useCallback, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useHistory, useParams } from 'react-router-dom';
-import { fetchOneBill, sendBillAsPDF, updateBill } from '../../api';
+import { fetchOneBill, sendBillAsPDF, updateBill } from '../../api/bills';
 import { BillForm } from '../../components/billForm';
 import { withLayout } from '../../layouts/main';
 import { Bill, BillFormType } from '../../types/bill';

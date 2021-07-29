@@ -16,7 +16,9 @@ export const RadioInput = ({ control, name, label, options }: RadioInputProps) =
       <Form.Item label={label}>
         <Radio.Group {...field}>
           {options.map((label, value) => (
-            <Radio value={value}>{label}</Radio>
+            <Radio key={value} value={label.toLowerCase()}>
+              {label}
+            </Radio>
           ))}
         </Radio.Group>
       </Form.Item>
