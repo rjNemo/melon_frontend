@@ -14,7 +14,13 @@ export const fetchReport = async ({
 
   try {
     const { data } = await client.get<Report>(queryURL);
-    return { data };
+    return {
+      data: {
+        // @ts-ignore
+        type: data.report_type,
+        ...data
+      }
+    };
   } catch (error) {
     console.error(error);
     return { error };

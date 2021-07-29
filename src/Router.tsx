@@ -4,7 +4,7 @@ import BillsPage from './pages/bills';
 import HomePage from './pages/home';
 import NewBillPage from './pages/newBill';
 import NotFoundPage from './pages/notFound';
-import ReportPage from './pages/ReportPage';
+import ReportPage from './pages/report';
 
 type RouteConfig = {
   path: string;
