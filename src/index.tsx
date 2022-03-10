@@ -15,4 +15,3 @@ ReactDOM.render(
 );
 
 reportWebVitals();
-export { enumToList } from './lib/enums';

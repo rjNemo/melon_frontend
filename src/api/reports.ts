@@ -1,19 +1,27 @@
 import { client, Response } from '.';
 import { Report, ReportFormType, ReportType } from '../types/report';
 
+export const reportsURL = '/reports';
+
 export const fetchReport = async ({
   type,
   year,
   month
 }: ReportFormType): Promise<Response<Report>> => {
-  const baseQueryURL = `/reports/?report_type=${type}&year=${year}`;
-  const queryURL =
+  const params =
     type === ReportType.monthly && month
-      ? baseQueryURL.concat(`&month=${month + 1}`)
-      : baseQueryURL;
+      ? {
+          report_type: type,
+          month: month + 1,
+          year
+        }
+      : {
+          report_type: type,
+          year
+        };
 
   try {
-    const { data } = await client.get<Report>(queryURL);
+    const { data } = await client.get<Report>(reportsURL, { params });
     return {
       data: {
         // @ts-ignore
