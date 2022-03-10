@@ -12,38 +12,45 @@ type RouteConfig = {
   exact?: boolean;
 };
 
+export const AppRoutes = {
+  home: '/',
+  bills: '/bills',
+  reports: '/reports',
+  catchAll: '*'
+};
+
 export default function Router() {
   const routes: RouteConfig[] = [
     // Home
     {
-      path: '/',
+      path: AppRoutes.home,
       component: HomePage,
       exact: true
     },
     // Bills
     {
-      path: '/bills/new',
+      path: `${AppRoutes.bills}/new`,
       component: NewBillPage,
       exact: true
     },
     {
-      path: '/bills',
+      path: AppRoutes.bills,
       component: BillsPage,
       exact: true
     },
     {
-      path: '/bills/:id',
+      path: `${AppRoutes.bills}/:id`,
       component: BillPage
     },
     //  Reports
     {
-      path: '/reports',
+      path: AppRoutes.reports,
       component: ReportPage,
       exact: true
     },
     // … rest
     {
-      path: '*',
+      path: AppRoutes.catchAll,
       component: NotFoundPage
     }
   ];

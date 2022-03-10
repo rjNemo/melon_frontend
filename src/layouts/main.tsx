@@ -1,5 +1,6 @@
 import { Layout, Menu, Row } from 'antd';
 import { Link, useRouteMatch } from 'react-router-dom';
+import { AppRoutes } from '../Router';
 
 const { Header, Content, Footer } = Layout;
 
@@ -8,8 +9,9 @@ export const withLayout =
   ({ ...props }: any) => {
     const { url } = useRouteMatch();
     const menuItems = [
-      { label: 'Home', path: '/' },
-      { label: 'Bills', path: '/bills' }
+      { label: 'Home', path: AppRoutes.home },
+      { label: 'Bills', path: AppRoutes.bills },
+      { label: 'Reports', path: AppRoutes.reports }
     ];
 
     return (
