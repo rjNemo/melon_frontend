@@ -64,7 +64,9 @@ const BillPage = () => {
       <Typography.Text>{bill.name}</Typography.Text>
       <Typography.Text>{bill.price} €</Typography.Text>
       <Typography.Text>
-        from {bill.start} to {bill.end}
+        <>
+          from {bill.start} to {bill.end}
+        </>
       </Typography.Text>
     </Col>
   );
