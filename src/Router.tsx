@@ -1,4 +1,4 @@
-import { Route, Switch } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import BillPage from './pages/bill';
 import BillsPage from './pages/bills';
 import HomePage from './pages/home';
@@ -6,55 +6,57 @@ import NewBillPage from './pages/newBill';
 import NotFoundPage from './pages/notFound';
 import ReportPage from './pages/report';
 
-type RouteConfig = {
+type Params = {
   path: string;
   component: ({ ...props }: any) => JSX.Element;
-  exact?: boolean;
+};
+
+export const AppRoutes = {
+  home: '/',
+  bills: '/bills',
+  reports: '/reports',
+  catchAll: '*'
 };
 
 export default function Router() {
-  const routes: RouteConfig[] = [
+  const routes: Params[] = [
     // Home
     {
-      path: '/',
-      component: HomePage,
-      exact: true
+      path: AppRoutes.home,
+      component: HomePage
     },
     // Bills
     {
-      path: '/bills/new',
-      component: NewBillPage,
-      exact: true
+      path: `${AppRoutes.bills}/new`,
+      component: NewBillPage
     },
     {
-      path: '/bills',
-      component: BillsPage,
-      exact: true
+      path: AppRoutes.bills,
+      component: BillsPage
     },
     {
-      path: '/bills/:id',
+      path: `${AppRoutes.bills}/:id`,
       component: BillPage
     },
     //  Reports
     {
-      path: '/reports',
-      component: ReportPage,
-      exact: true
+      path: AppRoutes.reports,
+      component: ReportPage
     },
     // … rest
     {
-      path: '*',
+      path: AppRoutes.catchAll,
       component: NotFoundPage
     }
   ];
 
   return (
-    <Switch>
-      {routes.map(({ exact, path, component: Component }) => (
-        <Route key={path} exact={!!exact} path={path}>
-          <Component />
-        </Route>
-      ))}
-    </Switch>
+    <>
+      <Routes>
+        {routes.map(({ path, component: Component }) => (
+          <Route key={path} path={path} element={<Component />} />
+        ))}
+      </Routes>
+    </>
   );
 }

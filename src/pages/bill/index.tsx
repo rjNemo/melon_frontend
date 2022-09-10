@@ -1,7 +1,7 @@
 import { Button, Col, Divider, message, PageHeader, Space, Typography } from 'antd';
 import { useCallback, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { useHistory, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { fetchOneBill, sendBillAsPDF, updateBill } from '../../api/bills';
 import { BillForm } from '../../components/billForm';
 import { withLayout } from '../../layouts/main';
@@ -13,7 +13,7 @@ export type QueryParams = { id: string };
 const BillPage = () => {
   // Hooks
   let { id } = useParams<QueryParams>();
-  const history = useHistory();
+  const navigate = useNavigate();
   const { handleSubmit, control, reset } = useForm<BillFormType>();
 
   // Local State
@@ -36,7 +36,7 @@ const BillPage = () => {
   );
 
   useEffect(() => {
-    loadBill(id);
+    loadBill(id!);
   }, [id, loadBill, reset]);
 
   // Logic
@@ -47,12 +47,12 @@ const BillPage = () => {
   };
 
   const onSubmit = handleSubmit(async (data) => {
-    const { error } = await updateBill(parseInt(id), data);
+    const { error } = await updateBill(parseInt(id!), data);
     if (error) {
       message.error(`Update failed because of ${error}`);
     }
     setEdit(() => false);
-    loadBill(id);
+    loadBill(id!);
   });
 
   const content = edit ? (
@@ -64,7 +64,9 @@ const BillPage = () => {
       <Typography.Text>{bill.name}</Typography.Text>
       <Typography.Text>{bill.price} €</Typography.Text>
       <Typography.Text>
-        from {bill.start} to {bill.end}
+        <>
+          from {bill.start} to {bill.end}
+        </>
       </Typography.Text>
     </Col>
   );
@@ -72,7 +74,7 @@ const BillPage = () => {
   return (
     <>
       <PageHeader
-        onBack={() => history.goBack()}
+        onBack={() => navigate(-1)}
         title={`Facture #VFNI${bill.id?.toString().padStart(4, '0')}`}
         subTitle={bill.name}
       />
