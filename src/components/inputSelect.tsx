@@ -1,5 +1,5 @@
-import { Form, Select } from "antd";
-import { Controller } from "react-hook-form";
+import { Form, Select } from 'antd';
+import { Controller } from 'react-hook-form';
 
 type InputSelectProps = {
   control: any;
@@ -24,7 +24,7 @@ export const InputSelect = ({ control, name, label, placeholder, options }: Inpu
           }
           options={options.map((label, value) => ({
             value,
-            label,
+            label
           }))}
           {...field}
         />

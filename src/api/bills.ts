@@ -12,6 +12,7 @@ export const createBill = async (data: BillFormType) => {
     return 0;
   }
 };
+
 export const updateBill = async (id: number, data: BillFormType): Promise<Response<void>> => {
   try {
     const { data: response } = await client.put<void>(`${billsURL}/${id}`, data);
@@ -21,6 +22,7 @@ export const updateBill = async (id: number, data: BillFormType): Promise<Respon
     return { error };
   }
 };
+
 export const fetchOneBill = async (id: number): Promise<Response<Bill>> => {
   try {
     const { data } = await client.get<Bill>(`${billsURL}/${id}`);
@@ -30,6 +32,7 @@ export const fetchOneBill = async (id: number): Promise<Response<Bill>> => {
     return { error };
   }
 };
+
 export const fetchAllBills = async () => {
   try {
     const { data } = await client.get<Bill[]>(billsURL);
