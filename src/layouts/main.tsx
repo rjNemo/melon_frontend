@@ -1,5 +1,5 @@
 import { Layout, Menu, Row } from 'antd';
-import { Link, useRouteMatch } from 'react-router-dom';
+import { Link, useMatch } from 'react-router-dom';
 import { AppRoutes } from '../Router';
 
 const { Header, Content, Footer } = Layout;
@@ -7,7 +7,6 @@ const { Header, Content, Footer } = Layout;
 export const withLayout =
   (Component: (arg: any) => JSX.Element) =>
   ({ ...props }: any) => {
-    const { url } = useRouteMatch();
     const menuItems = [
       { label: 'Home', path: AppRoutes.home },
       { label: 'Bills', path: AppRoutes.bills },
@@ -24,7 +23,7 @@ export const withLayout =
                 theme="dark"
                 mode="horizontal"
                 selectedKeys={[
-                  (menuItems.findIndex((item) => url.includes(item.path)) + 1).toString()
+                  (menuItems.findIndex((item) => useMatch(item.path)) + 1).toString()
                 ]}
               >
                 {menuItems.map(({ label, path }, index) => (

@@ -1,5 +1,5 @@
 import { useForm } from 'react-hook-form';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { createBill } from '../../api/bills';
 import { BillForm } from '../../components/billForm';
 import { withLayout } from '../../layouts/main';
@@ -8,12 +8,12 @@ import { BillFormType } from '../../types/bill';
 const NewBillPage = () => {
   // Hooks
   const { handleSubmit, control } = useForm<BillFormType>();
-  const history = useHistory();
+  const navigate = useNavigate();
 
   // Logic
   const onSubmit = handleSubmit(async (data) => {
     const newId = await createBill(data);
-    history.push(`/bills/${newId}`);
+    navigate(`/bills/${newId}`);
   });
 
   return (

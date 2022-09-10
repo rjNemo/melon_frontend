@@ -1,4 +1,4 @@
-import { Route, Switch } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import BillPage from './pages/bill';
 import BillsPage from './pages/bills';
 import HomePage from './pages/home';
@@ -6,10 +6,9 @@ import NewBillPage from './pages/newBill';
 import NotFoundPage from './pages/notFound';
 import ReportPage from './pages/report';
 
-type RouteConfig = {
+type Params = {
   path: string;
   component: ({ ...props }: any) => JSX.Element;
-  exact?: boolean;
 };
 
 export const AppRoutes = {
@@ -20,23 +19,20 @@ export const AppRoutes = {
 };
 
 export default function Router() {
-  const routes: RouteConfig[] = [
+  const routes: Params[] = [
     // Home
     {
       path: AppRoutes.home,
-      component: HomePage,
-      exact: true
+      component: HomePage
     },
     // Bills
     {
       path: `${AppRoutes.bills}/new`,
-      component: NewBillPage,
-      exact: true
+      component: NewBillPage
     },
     {
       path: AppRoutes.bills,
-      component: BillsPage,
-      exact: true
+      component: BillsPage
     },
     {
       path: `${AppRoutes.bills}/:id`,
@@ -45,8 +41,7 @@ export default function Router() {
     //  Reports
     {
       path: AppRoutes.reports,
-      component: ReportPage,
-      exact: true
+      component: ReportPage
     },
     // … rest
     {
@@ -56,12 +51,12 @@ export default function Router() {
   ];
 
   return (
-    <Switch>
-      {routes.map(({ exact, path, component: Component }) => (
-        <Route key={path} exact={!!exact} path={path}>
-          <Component />
-        </Route>
-      ))}
-    </Switch>
+    <>
+      <Routes>
+        {routes.map(({ path, component: Component }) => (
+          <Route key={path} path={path} element={<Component />} />
+        ))}
+      </Routes>
+    </>
   );
 }
